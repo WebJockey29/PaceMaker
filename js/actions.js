@@ -447,33 +447,6 @@ function openEventModal(eventId){
 
   openModal('eventOverlay');
 }
-function sessionExtraDetail(run){
-  if(!run) return '';
-
-  const detail = (run.detail || '').toLowerCase();
-
-  if(detail.includes('strides')){
-    return 'Includes strides. Run the main part easy, then complete the strides relaxed and fast with full recovery.';
-  }
-
-  if(detail.includes('threshold') || detail.includes('interval') || detail.includes('tempo') || detail.includes('x ')){
-    return 'This is a structured quality session. Follow the workout description carefully and keep recoveries controlled.';
-  }
-
-  if(run.role === 'long'){
-    return 'Keep this mostly conversational unless the session specifically asks for a stronger finish.';
-  }
-
-  if(run.role === 'steady'){
-    return 'This should feel comfortably hard — stronger than easy running, but controlled and sustainable.';
-  }
-
-  if(run.role === 'easy'){
-    return 'Keep effort relaxed. You should be able to speak in full sentences throughout.';
-  }
-
-  return '';
-}
 
 function openSessionDetails(dateISO){
   const d = toDate(dateISO);
@@ -525,4 +498,31 @@ function openSessionDetails(dateISO){
   `;
 
   openModal('sessionOverlay');
+}
+function sessionExtraDetail(run){
+  if(!run) return '';
+
+  const detail = (run.detail || '').toLowerCase();
+
+  if(detail.includes('strides')){
+    return 'Includes strides. Run the main part easy, then complete the strides relaxed and fast with full recovery.';
+  }
+
+  if(detail.includes('threshold') || detail.includes('interval') || detail.includes('tempo') || detail.includes('x ')){
+    return 'This is a structured quality session. Follow the workout description carefully and keep recoveries controlled.';
+  }
+
+  if(run.role === 'long'){
+    return 'Keep this mostly conversational unless the session specifically asks for a stronger finish.';
+  }
+
+  if(run.role === 'steady'){
+    return 'This should feel comfortably hard — stronger than easy running, but controlled and sustainable.';
+  }
+
+  if(run.role === 'easy'){
+    return 'Keep effort relaxed. You should be able to speak in full sentences throughout.';
+  }
+
+  return '';
 }
