@@ -447,3 +447,82 @@ function openEventModal(eventId){
 
   openModal('eventOverlay');
 }
+function sessionExtraDetail(run){
+  if(!run) return '';
+
+  const detail = (run.detail || '').toLowerCase();
+
+  if(detail.includes('strides')){
+    return 'Includes strides. Run the main part easy, then complete the strides relaxed and fast with full recovery.';
+  }
+
+  if(detail.includes('threshold') || detail.includes('interval') || detail.includes('tempo') || detail.includes('x ')){
+    return 'This is a structured quality session. Follow the workout description carefully and keep recoveries controlled.';
+  }
+
+  if(run.role === 'long'){
+    return 'Keep this mostly conversational unless the session specifically asks for a stronger finish.';
+  }
+
+  if(run.role === 'steady'){
+    return 'This should feel comfortably hard — stronger than easy running, but controlled and sustainable.';
+  }
+
+  if(run.role === 'easy'){
+    return 'Keep effort relaxed. You should be able to speak in full sentences throughout.';
+  }
+
+  return '';
+}
+
+function openSessionDetails(dateISO){
+  const d = toDate(dateISO);
+  const plan = fullDayPlan(d);
+  const run = plan.run;
+  const strength = plan.strength;
+  const event = events.find(e => e.status !== 'cancelled' && e.date === dateISO);
+  const paceLabel = paceLabelForRole(run.role);
+  const extra = sessionExtraDetail(run);
+
+  const body = document.getElementById('sessionModalBody');
+
+  body.innerHTML = `
+    <div class="hint" style="margin-bottom:10px;">
+      ${escapeHtml(d.toLocaleDateString('en-GB',{weekday:'long', day:'numeric', month:'long'}))}
+    </div>
+
+    <span class="today-role role-${escapeHtml(run.role || 'rest')}">${escapeHtml(run.role || 'rest')}</span>
+    <div class="today-title" style="font-size:22px;">${escapeHtml(run.title || 'Planned session')}</div>
+    <div class="today-detail">${escapeHtml(run.detail || 'No further detail available.')}</div>
+
+    ${run.km ? `<div class="pace-chip">${run.km} km <small>distance</small></div>` : ''}
+    ${paceLabel ? `<div class="pace-chip">${escapeHtml(paceLabel)} <small>target pace</small></div>` : ''}
+
+    ${extra ? `<div class="hint" style="margin-top:10px;">${escapeHtml(extra)}</div>` : ''}
+
+    ${event ? `
+      <div class="settings-section">
+        <h2 style="font-size:14px;margin-bottom:8px;">Event</h2>
+        <div class="today-detail" style="margin-bottom:6px;">${escapeHtml(event.name)}</div>
+        ${event.goalSeconds ? `<div class="pace-chip">${escapeHtml(fmtHMS(event.goalSeconds))} <small>goal time</small></div>` : ''}
+        ${eventDistanceKm(event) ? `<div class="pace-chip">${eventDistanceKm(event)} km <small>event distance</small></div>` : ''}
+      </div>
+    ` : ''}
+
+    ${strength ? `
+      <div class="settings-section">
+        <h2 style="font-size:14px;margin-bottom:8px;">Strength</h2>
+        <div class="today-detail" style="margin-bottom:6px;">${escapeHtml(strength.title)}</div>
+        <div class="hint">${escapeHtml(strength.detail)}</div>
+        ${strength.load ? `<div class="pace-chip">${escapeHtml(strength.load)} <small>gym load</small></div>` : ''}
+      </div>
+    ` : ''}
+
+    <div class="btn-row" style="margin-top:14px;">
+      ${dateISO <= todayISO() ? `<button class="btn" onclick="closeModal('sessionOverlay'); openLogModal('${dateISO}')">Log this session</button>` : ''}
+      <button class="btn secondary" onclick="closeModal('sessionOverlay')">Close</button>
+    </div>
+  `;
+
+  openModal('sessionOverlay');
+}
