@@ -619,25 +619,22 @@ input:focus,select:focus,textarea:focus{
 
 .calendar-months{
   display:grid;
-  grid-template-columns:1fr;
+  grid-template-columns:minmax(0,1fr);
   gap:14px;
+  width:100%;
   min-width:0;
+  max-width:100%;
 }
 
 .month-card{
   background:var(--ink);
   border:1px solid var(--line);
   border-radius:10px;
-  padding:12px;
+  padding:10px;
+  width:100%;
   min-width:0;
+  max-width:100%;
   overflow:hidden;
-}
-
-.month-grid{
-  display:grid;
-  grid-template-columns:repeat(7, minmax(0,1fr));
-  gap:4px;
-  min-width:0;
 }
 
 .month-title{
@@ -648,23 +645,39 @@ input:focus,select:focus,textarea:focus{
   letter-spacing:.06em;
 }
 
-.cal-head,.cal-day{
-  min-height:58px;
+.month-grid{
+  display:grid;
+  grid-template-columns:repeat(7, minmax(0,1fr));
+  gap:3px;
+  width:100%;
+  min-width:0;
+  max-width:100%;
+}
+
+.cal-head,
+.cal-day{
+  min-width:0;
+  width:100%;
+  max-width:100%;
+  min-height:54px;
   border-radius:6px;
-  padding:4px;
+  padding:3px;
   font-size:10px;
   background:rgba(255,255,255,.02);
   border:1px solid transparent;
+  overflow:hidden;
 }
 
 .cal-head{
   min-height:auto;
   background:none;
   color:var(--chalk-dim);
-  padding:2px 4px;
+  padding:2px 1px;
   border:none;
   text-transform:uppercase;
-  letter-spacing:.05em;
+  letter-spacing:.03em;
+  text-align:center;
+  font-size:9px;
 }
 
 .cal-day.out{opacity:.35;}
@@ -676,16 +689,19 @@ input:focus,select:focus,textarea:focus{
   font-family:'Share Tech Mono',monospace;
   color:var(--chalk-dim);
   font-size:10px;
-  margin-bottom:3px;
+  margin-bottom:2px;
+  white-space:nowrap;
 }
 
 .cal-item{
   display:block;
+  width:100%;
+  max-width:100%;
   border-radius:4px;
-  padding:2px 4px;
-  font-size:9px;
-  line-height:1.25;
-  margin-bottom:2px;
+  padding:1px 3px;
+  font-size:8px;
+  line-height:1.2;
+  margin-bottom:1px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -731,13 +747,21 @@ footer{
 }
 
 @media(max-width:560px){
+  html, body{
+    overflow-x:hidden;
+    max-width:100%;
+  }
+
   .wrap{
     padding:14px 10px 72px;
     overflow-x:hidden;
+    max-width:100%;
   }
 
-  body{
-    overflow-x:hidden;
+  .card{
+    min-width:0;
+    max-width:100%;
+    overflow:hidden;
   }
 
   .clock-digits{font-size:30px;}
@@ -746,7 +770,7 @@ footer{
   .grid2{grid-template-columns:1fr;}
 
   .month-card{
-    padding:8px;
+    padding:6px;
   }
 
   .month-grid{
@@ -755,23 +779,24 @@ footer{
 
   .cal-head,
   .cal-day{
-    min-height:42px;
-    padding:2px;
-    font-size:8px;
+    min-height:38px;
+    padding:2px 1px;
+    font-size:7px;
   }
 
   .cal-head{
-    font-size:8px;
-    padding:2px 1px;
+    font-size:7px;
+    letter-spacing:0;
+    padding:1px 0;
   }
 
   .cal-num{
-    font-size:9px;
-    margin-bottom:2px;
+    font-size:8px;
+    margin-bottom:1px;
   }
 
   .cal-item{
-    font-size:8px;
+    font-size:7px;
     padding:1px 2px;
     margin-bottom:1px;
   }
