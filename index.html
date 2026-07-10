@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pacemaker — Copenhagen & London Training</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap" id="app">Loading…</div>
+
+  <div class="overlay" id="logOverlay">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 style="font-size:16px;">Log session</h2>
+        <button class="close-x" onclick="closeModal('logOverlay')">&times;</button>
+      </div>
+      <div id="logModalBody"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="settingsOverlay">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 style="font-size:16px;">Settings</h2>
+        <button class="close-x" onclick="closeModal('settingsOverlay')">&times;</button>
+      </div>
+      <div id="settingsModalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/state.js"></script>
+  <script src="js/dates.js"></script>
+  <script src="js/plan.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/actions.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
