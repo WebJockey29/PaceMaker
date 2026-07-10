@@ -621,6 +621,7 @@ input:focus,select:focus,textarea:focus{
   display:grid;
   grid-template-columns:1fr;
   gap:14px;
+  min-width:0;
 }
 
 .month-card{
@@ -628,6 +629,15 @@ input:focus,select:focus,textarea:focus{
   border:1px solid var(--line);
   border-radius:10px;
   padding:12px;
+  min-width:0;
+  overflow:hidden;
+}
+
+.month-grid{
+  display:grid;
+  grid-template-columns:repeat(7, minmax(0,1fr));
+  gap:4px;
+  min-width:0;
 }
 
 .month-title{
@@ -636,12 +646,6 @@ input:focus,select:focus,textarea:focus{
   margin-bottom:8px;
   text-transform:uppercase;
   letter-spacing:.06em;
-}
-
-.month-grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:4px;
 }
 
 .cal-head,.cal-day{
@@ -727,9 +731,56 @@ footer{
 }
 
 @media(max-width:560px){
+  .wrap{
+    padding:14px 10px 72px;
+    overflow-x:hidden;
+  }
+
+  body{
+    overflow-x:hidden;
+  }
+
   .clock-digits{font-size:30px;}
   .day-cell{min-height:74px;padding:6px 4px;}
   .day-cell .drole{font-size:9px;}
   .grid2{grid-template-columns:1fr;}
-  .cal-day{min-height:48px;}
+
+  .month-card{
+    padding:8px;
+  }
+
+  .month-grid{
+    gap:2px;
+  }
+
+  .cal-head,
+  .cal-day{
+    min-height:42px;
+    padding:2px;
+    font-size:8px;
+  }
+
+  .cal-head{
+    font-size:8px;
+    padding:2px 1px;
+  }
+
+  .cal-num{
+    font-size:9px;
+    margin-bottom:2px;
+  }
+
+  .cal-item{
+    font-size:8px;
+    padding:1px 2px;
+    margin-bottom:1px;
+  }
+
+  .legend{
+    gap:6px;
+  }
+
+  .legend span{
+    font-size:10px;
+  }
 }
