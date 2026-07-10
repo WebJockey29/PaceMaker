@@ -21,7 +21,7 @@ const KM_HALF = 21.0975;
 const KM_5K = 5;
 
 const DEFAULT_PROFILE = {
-   startDate: new Date().toISOString().slice(0,10),
+  startDate: new Date().toISOString().slice(0,10),
   copenhagenDate: '2026-09-20',
   copenhagenGoal: null,
   londonDate: '2027-04-25',
