@@ -1,6 +1,24 @@
-state.js:234 
- DELETE http://localhost:3000/api/events/4 404 (Not Found)
-deleteEventInApi	@	state.js:234
-deleteEvent	@	actions.js:423
-confirmDeleteEvent	@	actions.js:439
-onclick	@	(index):1
+INSERT INTO profiles (
+  user_id,
+  start_date,
+  prior_marathon_seconds,
+  training_days,
+  strength_days,
+  dietary_pref,
+  training_time_of_day,
+  load_multiplier,
+  last_adapted_week_key,
+  strength_focus
+)
+VALUES (
+  1,
+  CURRENT_DATE,
+  17880,
+  '[2,4,6,0]',
+  '[1,5]',
+  'none',
+  'morning',
+  1.0,
+  NULL,
+  'balanced'
+);
