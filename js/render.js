@@ -234,7 +234,7 @@ function renderUpcomingEvents(){
       <button
         type="button"
         class="event-row-btn"
-        onclick="openEventModal('${e.id}')"
+        data-event-id="${escapeHtml(String(e.id))}"
       >
         <div class="log-row" style="border-bottom:none;padding:0;">
           <div>
