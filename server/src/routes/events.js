@@ -8,7 +8,7 @@ const DEV_USER_ID = 1;
 router.get('/', async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT 
+      `SELECT
         id,
         user_id,
         name,
@@ -108,6 +108,11 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const eventId = Number(req.params.id);
+
+    if (!Number.isFinite(eventId)) {
+      return res.status(400).json({ ok: false, error: 'Invalid event id' });
+    }
+
     const {
       name,
       date,
@@ -119,6 +124,13 @@ router.put('/:id', async (req, res) => {
       notes,
       status
     } = req.body;
+
+    if (!name || !date || !distanceType) {
+      return res.status(400).json({
+        ok: false,
+        error: 'name, date, and distanceType are required'
+      });
+    }
 
     const result = await pool.query(
       `UPDATE events
@@ -178,6 +190,12 @@ router.delete('/:id', async (req, res) => {
   try {
     const eventId = Number(req.params.id);
 
+    if (!Number.isFinite(eventId)) {
+      return res.status(400).json({ ok: false, error: 'Invalid event id' });
+    }
+
+    console.log('DELETE /api/events hit with id:', eventId, 'for user:', DEV_USER_ID);
+
     const result = await pool.query(
       `DELETE FROM events
        WHERE id = $1 AND user_id = $2
@@ -185,11 +203,16 @@ router.delete('/:id', async (req, res) => {
       [eventId, DEV_USER_ID]
     );
 
+    console.log('DELETE result rows:', result.rows);
+
     if (!result.rows.length) {
       return res.status(404).json({ ok: false, error: 'Event not found' });
     }
 
-    res.json({ ok: true, deletedId: eventId });
+    res.json({
+      ok: true,
+      deletedId: result.rows[0].id
+    });
   } catch (err) {
     console.error('DELETE /api/events/:id failed:', err);
     res.status(500).json({ ok: false, error: 'Failed to delete event' });
