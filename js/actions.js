@@ -213,17 +213,7 @@ function openSettings(){
     <div class="settings-section">
       <label>Prior marathon time (h:mm:ss)</label>
       <input id="setPrior" value="${fmtHMS(profile.priorMarathonSeconds)}">
-      <label>Goal marathon time (h:mm:ss)</label>
-      <input id="setGoal" value="${fmtHMS(profile.goalMarathonSeconds)}">
-    </div>
 
-    <div class="settings-section">
-      <label>Copenhagen Half Marathon date</label>
-      <input id="setCph" type="date" value="${profile.copenhagenDate}">
-      <label>Copenhagen goal time (h:mm:ss)</label>
-      <input id="setCphGoal" value="${fmtHMS(profile.copenhagenGoal)}">
-      <label>TCS London Marathon date</label>
-      <input id="setLdn" type="date" value="${profile.londonDate}">
       <label>Plan start date</label>
       <input id="setStart" type="date" value="${profile.startDate}">
     </div>
@@ -239,7 +229,7 @@ function openSettings(){
       <div class="day-toggles" id="strengthDayToggles">
         ${dayDefs.map(([v,l])=>`<div class="day-toggle ${strengthDays.includes(v)?'on':''}" data-v="${v}" onclick="toggleDay(this)">${l}</div>`).join('')}
       </div>
-      <div class="hint">Try to avoid placing your heaviest lower-body lifting the day before the long run.</div>
+      <div class="hint">Try to avoid placing heavy lower-body lifting the day before the long run.</div>
     </div>
 
     <div class="settings-section">
