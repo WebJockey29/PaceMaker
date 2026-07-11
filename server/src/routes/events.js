@@ -188,13 +188,23 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
+    console.log('Raw req.params.id:', req.params.id, 'type:', typeof req.params.id);
+
     const eventId = Number(req.params.id);
+    console.log('Parsed eventId:', eventId, 'DEV_USER_ID:', DEV_USER_ID);
 
     if (!Number.isFinite(eventId)) {
       return res.status(400).json({ ok: false, error: 'Invalid event id' });
     }
 
-    console.log('DELETE /api/events hit with id:', eventId, 'for user:', DEV_USER_ID);
+    const check = await pool.query(
+      `SELECT id, user_id, name
+       FROM events
+       WHERE id = $1`,
+      [eventId]
+    );
+
+    console.log('Row with this id before delete:', check.rows);
 
     const result = await pool.query(
       `DELETE FROM events
@@ -203,7 +213,7 @@ router.delete('/:id', async (req, res) => {
       [eventId, DEV_USER_ID]
     );
 
-    console.log('DELETE result rows:', result.rows);
+    console.log('Delete result rows:', result.rows);
 
     if (!result.rows.length) {
       return res.status(404).json({ ok: false, error: 'Event not found' });
