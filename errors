@@ -1,5 +1,6 @@
-actions.js:428 Failed to delete event: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
-deleteEvent	@	actions.js:428
-await in deleteEvent		
+state.js:234 
+ DELETE http://localhost:3000/api/events/4 404 (Not Found)
+deleteEventInApi	@	state.js:234
+deleteEvent	@	actions.js:423
 confirmDeleteEvent	@	actions.js:439
 onclick	@	(index):1
