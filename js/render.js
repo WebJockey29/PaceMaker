@@ -233,23 +233,23 @@ function renderUpcomingEvents(){
     return `
       <button
         type="button"
-        class="log-row event-row-btn"
+        class="event-row-btn"
         onclick="openEventModal('${e.id}')"
-        style="cursor:pointer;width:100%;text-align:left;background:none;"
       >
-        <div>
-          <span class="log-role" style="background:${e.priority==='A' ? 'rgba(215,38,61,.22)' : e.priority==='B' ? 'rgba(255,179,0,.18)' : 'rgba(255,255,255,.08)'};color:${e.priority==='A' ? '#ff9cab' : e.priority==='B' ? 'var(--amber)' : 'var(--chalk-dim)'}">${escapeHtml(e.priority)}</span>
-          <span style="margin-left:8px;">${escapeHtml(e.name)}</span>
-          <div class="hint" style="margin-top:4px;">
-            ${dist ? `${dist}km` : ''}${e.goalSeconds ? ` · target ${hm.hours}h ${hm.minutes}m` : ''} · ${escapeHtml(e.date)}
+        <div class="log-row" style="border-bottom:none;padding:0;">
+          <div>
+            <span class="log-role" style="background:${e.priority==='A' ? 'rgba(215,38,61,.22)' : e.priority==='B' ? 'rgba(255,179,0,.18)' : 'rgba(255,255,255,.08)'};color:${e.priority==='A' ? '#ff9cab' : e.priority==='B' ? 'var(--amber)' : 'var(--chalk-dim)'}">${escapeHtml(e.priority)}</span>
+            <span style="margin-left:8px;">${escapeHtml(e.name)}</span>
+            <div class="hint" style="margin-top:4px;">
+              ${dist ? `${dist}km` : ''}${e.goalSeconds ? ` · target ${hm.hours}h ${hm.minutes}m` : ''} · ${escapeHtml(e.date)}
+            </div>
           </div>
+          <div class="log-meta">View</div>
         </div>
-        <div class="log-meta">View</div>
       </button>
     `;
   }).join('');
 }
-
 function renderCalendarMonths(){
   const start = startOfMonth(toDate(profile.startDate));
   const endEvent = getUpcomingEvents().length ? getUpcomingEvents()[getUpcomingEvents().length - 1] : null;
