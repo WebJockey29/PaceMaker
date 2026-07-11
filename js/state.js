@@ -195,7 +195,9 @@ async function fetchEventsFromApi(){
   if(!res.ok){
     throw new Error('Failed to fetch events');
   }
-  return await res.json();
+
+  const data = await res.json();
+  return Array.isArray(data) ? data.map(normaliseEventFromApi) : [];
 }
 
 async function createEventInApi(event){
@@ -209,7 +211,8 @@ async function createEventInApi(event){
     throw new Error('Failed to create event');
   }
 
-  return await res.json();
+  const data = await res.json();
+  return normaliseEventFromApi(data);
 }
 
 async function updateEventInApi(eventId, event){
@@ -223,7 +226,8 @@ async function updateEventInApi(eventId, event){
     throw new Error('Failed to update event');
   }
 
-  return await res.json();
+  const data = await res.json();
+  return normaliseEventFromApi(data);
 }
 
 async function deleteEventInApi(eventId){
