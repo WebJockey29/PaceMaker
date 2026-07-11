@@ -11,7 +11,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const clientPath = path.join(__dirname, '../../client');
+const clientPath = path.resolve(__dirname, '../../client');
+console.log('Serving static files from:', clientPath);
+
 app.use(express.static(clientPath));
 app.use('/api/events', eventsRouter);
 
