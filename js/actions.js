@@ -305,7 +305,7 @@ function saveSettings(){
   render();
 }
 function findEventById(id){
-  return events.find(e => e.id === id) || null;
+  return events.find(e => String(e.id) === String(id)) || null;
 }
 
 function openEventEditor(eventId){
